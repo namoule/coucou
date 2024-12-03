@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:11:17 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/03 10:46:25 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:53:30 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	is_builtins(t_command *cmd)
 	else if (ft_strcmp(cmd->args[0], "env") == 0)
 		return (env(cmd));
 	else if (ft_strcmp(cmd->args[0], "unset") == 0)
-		return(unset(&cmd->table->envp, cmd->args[1]));
+		return (unset(&cmd->table->envp, cmd->args[1]));
 	else if (ft_strcmp(cmd->args[0], "export") == 0)
 	{
 		cmd->table->envp = ft_export(cmd);

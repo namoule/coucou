@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:03:20 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/03 10:39:27 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:28:14 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (line[0] != '\0' && line[0] != '\n')
 			env = exec_command(line, env, &return_value);
+		else
+			free(line);
 		handle_interrupts(line);
 	}
 	return (return_value);

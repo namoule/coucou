@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:39:54 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/03 10:49:06 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:27:45 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ int	exit_shell(t_command *cmd, char **argv, int i)
 	}
 	final_exit_code = (unsigned char)(exit_code % 256);
 	if (i == 0)
+	{
 		printf("exit\n");
-	free_table(cmd->table);
-	free_cmd(cmd);
+		free_table(cmd->table);
+		free_cmd(cmd);
+	}
 	exit(final_exit_code);
 }
