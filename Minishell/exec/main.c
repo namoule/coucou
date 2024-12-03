@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:03:20 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/03 00:05:53 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:39:27 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	flunch(t_command *cmd)
 	while (quentin && quentin->args[0])
 	{
 		val = is_builtins(quentin);
-		if (!cmd->table->envp)
-			printf("test\n");
 		if (val == -1 && check_cmd(quentin, cmd->table->envp) == 0)
 		{
 			g_sig = 200;
@@ -79,7 +77,7 @@ char	**exec_command(char *line, char **envp, int *return_value)
 	if (!cmd)
 		return (envp);
 	if (ft_strcmp(cmd->args[0], "exit") == 0 && !cmd->next)
-		exit_shell(cmd->args, 0);
+		exit_shell(cmd, cmd->args, 0);
 	*return_value = flunch(cmd);
 	env = get_env(cmd->table->envp);
 	free_table(cmd->table);

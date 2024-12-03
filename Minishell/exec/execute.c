@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:10:19 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 16:22:50 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:14:12 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ void	execute(t_command *cmd, char **envp)
 		pathoche = find_path(cmd);
 	if (!pathoche)
 	{
-		perror("command not found");
+		perror(cmd->args[0]);
 		free_table(cmd->table);
 		free_cmd(cmd);
 		exit(EXIT_FAILURE);
 	}
-	if (execve(pathoche, cmd->args, envp) == -1)
+	if(access(pathoche, X_OK) == 0)
 	{
-		free(pathoche);
-		perror("command execution failed");
+		if (execve(pathoche, cmd->args, envp) == -1)
+		{
+			free(pathoche);
+			perror("command execution failed");
+		}
 	}
 }
 
@@ -52,7 +55,9 @@ int	execute_cmd(t_command *cmd, char **envp)
 		close(cmd->p[WRITE_END]);
 		close(cmd->p[READ_END]);
 		execute(cmd, envp);
-		perror("execute");
+		perror(cmd->args[0]);
+		free_table(cmd->table);
+		free_cmd(cmd);
 		exit(EXIT_FAILURE);
 	}
 	else if (cmd->table->pids[cmd->table->ipids] < 0)

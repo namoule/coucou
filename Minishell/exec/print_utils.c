@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeannelefevre <jeannelefevre@student.42    +#+  +:+       +#+        */
+/*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:05:30 by jeannelefev       #+#    #+#             */
-/*   Updated: 2024/10/30 21:19:41 by jeannelefev      ###   ########.fr       */
+/*   Updated: 2024/12/03 09:44:07 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	command_not_found(char *cmd)
 {
-	write(1, "Command not found: ", 19);
-	write(1, cmd, ft_strlen(cmd));
-	write(1, "\n", 1);
+	printf("%s :", cmd);
+	perror(&cmd[0]);
 }
 
 void	print_command(t_command *cmd)

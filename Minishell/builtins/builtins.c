@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:11:17 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 20:23:22 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:46:25 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	choose(t_command *cmd)
 	else if (ft_strcmp(cmd->args[0], "pwd") == 0)
 		pwd();
 	else if (ft_strcmp(cmd->args[0], "exit") == 0)
-		*cmd->table->exit_code = exit_shell(cmd->args, 1);
+		*cmd->table->exit_code = exit_shell(cmd, cmd->args, 1);
 }
 
 int	deal_builtins(t_command *cmd)
@@ -46,10 +46,7 @@ int	deal_builtins(t_command *cmd)
 	{
 		deals_pipe(cmd);
 		choose(cmd);
-		if(cmd->table->envp)
-			freetab(cmd->table->envp);
-		free(cmd->table->pids);
-		free(cmd->table);
+		free_table(cmd->table);
 		free_cmd(cmd);
 		exit(EXIT_SUCCESS);
 	}

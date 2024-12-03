@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:01:59 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 20:22:52 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:39:04 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ char					**ft_export(t_command *cmd);
 char					**get_env(char **envp);
 int						syntax(char *str);
 char					*good_char(char *str);
-int						exit_shell(char **argv, int i);
+int						exit_shell(t_command *cmd, char **argv, int i);
 char					**get_env1(char **envp);
 char					**get_env3(char **envp);
 #endif
