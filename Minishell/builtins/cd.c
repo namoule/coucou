@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:20:10 by jealefev          #+#    #+#             */
-/*   Updated: 2024/11/08 17:47:32 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:24:09 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	cd(char **tab)
 	{
 		str = ft_strjoin(tab[1], "/");
 		ft_cd(str);
+		free(str);
 	}
 	return (0);
 }

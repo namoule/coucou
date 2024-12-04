@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:03:20 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/03 22:28:14 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:32:22 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	launch_exec(t_command *cmd, char **envp)
+void	launch_exec(t_command *cmd)
 {
-	execute_cmd(cmd, envp);
+	execute_cmd(cmd);
+
 	if (cmd->pprev != -2)
 		close(cmd->pprev);
 	if (cmd->next == NULL && cmd->p[READ_END] >= 0)
@@ -29,23 +30,21 @@ void	launch_exec(t_command *cmd, char **envp)
 
 int	flunch(t_command *cmd)
 {
-	int			val;
 	int			return_value;
 	t_command	*quentin;
 
 	quentin = cmd;
 	while (quentin && quentin->args[0])
 	{
-		val = is_builtins(quentin);
-		if (val == -1 && check_cmd(quentin, cmd->table->envp) == 0)
+		if (check_cmd(quentin, cmd->table->envp) == 0)
 		{
 			g_sig = 200;
-			launch_exec(quentin, cmd->table->envp);
+			launch_exec(quentin);
 		}
 		else
 		{
-			quentin->table->pids[quentin->table->ipids] = val;
-			quentin->table->ipids++;
+			// quentin->table->pids[quentin->table->ipids] = val;
+			// quentin->table->ipids++;
 		}
 		quentin = quentin->next;
 	}
@@ -76,9 +75,10 @@ char	**exec_command(char *line, char **envp, int *return_value)
 	free(line);
 	if (!cmd)
 		return (envp);
-	if (ft_strcmp(cmd->args[0], "exit") == 0 && !cmd->next)
-		exit_shell(cmd, cmd->args, 0);
-	*return_value = flunch(cmd);
+	if(!cmd->next && check_builtins(cmd) == 0)
+		*return_value = is_builtins(cmd);
+	else
+		*return_value = flunch(cmd);
 	env = get_env(cmd->table->envp);
 	free_table(cmd->table);
 	free_cmd(cmd);

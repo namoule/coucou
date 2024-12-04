@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 16:09:18 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:37:40 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	expand_tokens(char **tokens, t_command *cmd, t_state *state, int j)
 	i = 0;
 	result = NULL;
 	state->cmd = cmd;
-	(void)tokens;
 	while (tokens[j] && ft_strcmp(tokens[j], "|"))
 	{
 		state->i = 0;
@@ -47,9 +46,10 @@ int	expand_tokens(char **tokens, t_command *cmd, t_state *state, int j)
 			|| ft_strchr(tokens[j], '\''))
 		{
 			if (ft_strchr(tokens[j], '\"') || ft_strchr(tokens[j], '\''))
-				process_quotes(cmd, state);
+				handle_quotes_and_expand(tokens[j], state);
 			else
-				cmd->args[i] = ft_strdup(process_char_helper(tokens[j], state));
+				process_char_helper(tokens[j], state);
+			copy_quotes_to_arg(cmd, &i, state);
 		}
 		else
 			cmd->args[i] = ft_strdup(cmd->sargs[i]);

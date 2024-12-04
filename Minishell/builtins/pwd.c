@@ -6,15 +6,13 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:10:50 by jealefev          #+#    #+#             */
-/*   Updated: 2024/11/08 17:47:10 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:21:12 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "../includes/minishell.h"
 
-int	pwd(void)
+int	pwd()
 {
 	char	cwd[1024];
 

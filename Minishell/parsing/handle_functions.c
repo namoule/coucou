@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 14:32:30 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:44:41 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	handle_single_quotes(char *arg, t_state *state)
 			return ;
 		if (str[0] != '\0' && str)
 		{
-			state->n[1]++;
 			state->cmd->token_quotes[state->n[1]] = ft_strdup(str);
+			state->n[1]++;
 		}
 		else
 			state->cmd->token_quotes[state->n[1]] = ft_strdup("");
@@ -58,17 +58,8 @@ void	handle_double_quotes(char *arg, t_state *state)
 		str = helper_quotes(arg, '\"', state);
 		if (str == NULL)
 			return ;
-		state->cmd->result = process_char_helper(str, state);
-		if (state->cmd->result && (state->cmd->result)[0] != '\0')
-		{
-			state->cmd->token_quotes[state->n[1]]
-				= ft_strdup(state->cmd->result);
-			state->n[1]++;
-			state->dq_open = 0;
-			if (state->cmd->result)
-				ft_bzero(state->cmd->result,
-					ft_strlen((const char *)state->cmd->result));
-		}
+		process_char_helper(str, state);
+		state->n[0]++;
 		free(str);
 	}
 }

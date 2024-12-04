@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:11:09 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 13:56:42 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:37:30 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ int	check_n(char **args)
 			i++;
 		else if (check_full_args_n(args[i]) != 0)
 			return (i);
+		else
+			i++;
 	}
 	return (i);
 }
 
-void	echo(t_command *cmd)
+int	echo(t_command *cmd)
 {
 	int	ind_n;
 	int	line;
@@ -65,4 +67,5 @@ void	echo(t_command *cmd)
 	}
 	if (line != 1)
 		printf("\n");
+	return(0);
 }

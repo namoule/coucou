@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:01:59 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/03 22:27:57 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:26:35 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,11 +150,11 @@ char					*check_access(char **pathoche, char *cmd, int i);
 int						check_path_in_env(char **envp);
 int						check_line(char *line);
 void					execute(t_command *cmd, char **envp);
-int						execute_cmd(t_command *cmd, char **envp);
+int						execute_cmd(t_command *cmd);
 void					freetab(char **tab);
 void					free_cmd(t_command *cmd);
 int						here_doc(char *lim);
-void					launch_exec(t_command *cmd, char **envp);
+void					launch_exec(t_command *cmd);
 int						flunch(t_command *cmd);
 char					**exec_command(char *line, char **envp,
 							int *return_value);
@@ -174,7 +174,7 @@ char					*get_line(char **envp);
 // =========================================================================
 int						is_builtins(t_command *cmd);
 void					command_not_found(char *cmd);
-void					echo(t_command *cmd);
+int						echo(t_command *cmd);
 int						cd(char **tab);
 int						pwd(void);
 int						env(t_command *cmd);
@@ -184,7 +184,8 @@ char					**ft_export(t_command *cmd);
 char					**get_env(char **envp);
 int						syntax(char *str);
 char					*good_char(char *str);
-int						exit_shell(t_command *cmd, char **argv, int i);
+int						exit_shell(char **argv);
 char					**get_env1(char **envp);
 char					**get_env3(char **envp);
+int						check_builtins(t_command *cmd);
 #endif

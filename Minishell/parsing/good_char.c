@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:10 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 13:58:23 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:45:07 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	check_invalid_quotes(char *str, char *res)
 {
 	if (check_pair_quotes(str))
 	{
-		printf("Invalid quotes\n");
 		free(res);
 		return (1);
 	}

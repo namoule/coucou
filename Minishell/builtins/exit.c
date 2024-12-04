@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:39:54 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/03 22:27:45 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:37:45 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ long	ft_atol(const char *str)
 	return (result * sign);
 }
 
-int	exit_shell(t_command *cmd, char **argv, int i)
+int	exit_shell(char **argv)
 {
 	long			exit_code;
 	unsigned char	final_exit_code;
@@ -76,11 +76,6 @@ int	exit_shell(t_command *cmd, char **argv, int i)
 			exit_code = ft_atol(argv[1]);
 	}
 	final_exit_code = (unsigned char)(exit_code % 256);
-	if (i == 0)
-	{
-		printf("exit\n");
-		free_table(cmd->table);
-		free_cmd(cmd);
-	}
+	printf("exit\n");
 	exit(final_exit_code);
 }

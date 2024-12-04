@@ -6,11 +6,15 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 12:39:45 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 14:38:18 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:36:17 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 #include <stdlib.h>
 #include <stdio.h>

@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 11:27:13 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 14:00:53 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:13:21 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_double(char *str, int i)
 		return (-1);
 	}
 	else if (str[i] == '<' && str[i + 1] == '<' && (str[i + 2] == '<' || str[i
-				+ 2] == '>'))
+				+ 2] == '<'))
 	{
 		printf("minishell: syntax error near unexpected token `<<'\n");
 		return (-1);

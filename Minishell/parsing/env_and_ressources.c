@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 14:36:57 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:45:20 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,21 @@ typedef struct s_indices {
 
 int	handle_special_cases(const char *input, t_state *state, t_indices *indices)
 {
-	char	*str;
-
-	str = NULL;
-	while (input[indices->j] == '$' && (input[indices->i] == '\'' || input[indices->i] == '\"'))
+	if (input[indices->j] == '$' &&
+	    ((input[indices->i] == '\"' && input[indices->i + 1] == '\"') ||
+	     (input[indices->i] == '\'' && input[indices->i + 1] == '\'')))
 	{
-		if (input[indices->i] == '\'')
-			str = helper_quotes((char *)&input[indices->i], '\'', state);
-		if (input[indices->i] == '\"')
-			str = helper_quotes((char *)&input[indices->i], '\"', state);
-		state->n[0]++;
-		free(str);
+		indices->i += 2;
+		state->i += 3;
+		state->n[0] += 3;
+		state->env_var = ft_strdup("");
 		return (1);
 	}
 	if (input[indices->i] == '?')
 	{
 		state->env_var = get_exit_code(1, state);
 		state->i++;
+		state->n[0]++;
 		return (1);
 	}
 	return (0);
@@ -46,6 +44,7 @@ int	handle_empty_or_double_dollar(const char *input, t_state *state)
 	{
 		state->env_var = ft_strdup("$\0");
 		state->i++;
+		state->n[0]++;
 		return (1);
 	}
 	return (0);
@@ -54,13 +53,19 @@ int	handle_empty_or_double_dollar(const char *input, t_state *state)
 void	handle_variable_name(const char *input, char *var_name, t_indices *indices,
 		t_state *state)
 {
+	int		verif;
+
+	verif = 0;
 	while (input[indices->i] && (ft_isalnum(input[indices->i]) || input[indices->i] == '_'))
 	{
 		var_name[indices->j] = input[indices->i];
 		indices->i++;
 		indices->j++;
+		verif = 1;
 	}
 	state->i += indices->j;
+	if (verif)
+		state->n[0] += indices->i;
 	var_name[indices->j] = '\0';
 }
 
@@ -72,6 +77,7 @@ void	handle_remaining_chars(const char *input, t_indices *indices, t_state *stat
 		indices->j++;
 	}
 	state->i += indices->j;
+	state->n[0] += indices->j;
 	if (input[0] == '$')
 		state->env_var = ft_substr(input, 0, indices->j);
 	else
@@ -93,5 +99,6 @@ char	*make_expand(const char *input, t_state *state)
 	if (expand_env_variable(var_name, state, indices.i))
 		return (state->env_var);
 	handle_remaining_chars(input, &indices, state);
+	state->n[0]++;
 	return (state->env_var);
 }
