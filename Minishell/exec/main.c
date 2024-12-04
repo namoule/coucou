@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:03:20 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/04 12:32:22 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:26:27 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,24 @@ char	**exec_command(char *line, char **envp, int *return_value)
 	}
 	if (syntax(line) == -1)
 	{
+		printf("lalalalala");
 		free(line);
 		return (envp);
 	}
-	cmd = fill_t_command(line, envp, *return_value);
-	free(line);
-	if (!cmd)
-		return (envp);
-	if(!cmd->next && check_builtins(cmd) == 0)
-		*return_value = is_builtins(cmd);
 	else
-		*return_value = flunch(cmd);
-	env = get_env(cmd->table->envp);
-	free_table(cmd->table);
-	free_cmd(cmd);
+	{
+		cmd = fill_t_command(line, envp, *return_value);
+		free(line);
+		if (!cmd)
+			return (envp);
+		if(!cmd->next && check_builtins(cmd) == 0)
+			*return_value = is_builtins(cmd);
+		else
+			*return_value = flunch(cmd);
+		env = get_env(cmd->table->envp);
+		free_table(cmd->table);
+		free_cmd(cmd);
+	}
 	return (env);
 }
 

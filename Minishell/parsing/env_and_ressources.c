@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/04 12:45:20 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:28:38 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,20 @@ void	handle_variable_name(const char *input, char *var_name, t_indices *indices,
 
 void	handle_remaining_chars(const char *input, t_indices *indices, t_state *state)
 {
+	if (input[indices->j] == '$')
+	{
+		state->env_var = ft_substr(input, indices->j, 1);
+		state->i++;
+		return ;
+	}
 	while (input[indices->i] && input[indices->i] != '$')
 	{
 		indices->i++;
 		indices->j++;
 	}
 	state->i += indices->j;
-	state->n[0] += indices->j;
-	if (input[0] == '$')
-		state->env_var = ft_substr(input, 0, indices->j);
-	else
-		state->env_var = ft_substr(input, indices->j - 1, indices->i - indices->j);
+	state->env_var = ft_substr(input, indices->j - 1, indices->i - indices->j);
+	state->n[0] += (indices->i - indices->j);
 }
 
 char	*make_expand(const char *input, t_state *state)

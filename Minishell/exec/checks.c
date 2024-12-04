@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 21:04:36 by jeannelefev       #+#    #+#             */
-/*   Updated: 2024/12/04 12:47:30 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:27:41 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	check_cmd(t_command *cmd, char **envp)
 		str = path(command[0], envp);
 		if (str == NULL || cmd->args[0][0] == '.' || cmd->args[0][0] == '\0')
 		{
-			printf("WHOIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n\n\n\n\n\n\n");
 			(free(str), freetab(command));
 			command_not_found(cmd->args[0]);
 			return (-1);

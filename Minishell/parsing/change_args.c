@@ -10,6 +10,7 @@
 /*   Updated: 2024/12/02 08:53:24 by abremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 int		count_args(t_command *head)

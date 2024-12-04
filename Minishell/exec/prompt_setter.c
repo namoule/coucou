@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 20:46:58 by jeannelefev       #+#    #+#             */
-/*   Updated: 2024/12/03 00:10:06 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:30:39 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ char	*get_line(char **envp)
 		handle_exit(NULL, envp);
 	if (check_line(line) != -1)
 		add_line_to_history(line);
+	if(syntax(line) == -1)
+		return(NULL);
 	new_line = good_char(line);
 	free(line);
 	if (!new_line)

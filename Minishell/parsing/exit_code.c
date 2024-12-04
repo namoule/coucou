@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_code.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abremont <abremont@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/04 12:34:48 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:53:31 by abremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,22 @@ char	*dollar_question_case(char *arg, t_state *state)
 int	check_pair_quotes(char *str)
 {
 	int	i;
-	int	j;
 	int	count_sq;
 	int	count_dq;
 
 	i = 0;
-	j = 0;
 	count_dq = 0;
 	count_sq = 0;
-	while (*str++)
+	while (str[i])
 	{
 		if (ft_strchr(str, '\'') || ft_strchr(str, '\"'))
 		{
-			if (*str == '\'' && !(count_dq % 2))
+			if (str[i] == '\'' && !(count_dq % 2))
 				count_sq = !count_sq;
-			if (*str == '\"' && !(count_sq % 2))
+			if (str[i] == '\"' && !(count_sq % 2))
 				count_dq = !count_dq;
 		}
+		i++;
 	}
 	if ((count_sq % 2) || (count_dq % 2))
 		return (1);

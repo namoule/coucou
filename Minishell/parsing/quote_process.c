@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/04 12:44:15 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:29:18 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	update_quotes(char ch, t_state *state, size_t result_size)
 	}
 }
 
-void	helper_process(t_state *state, const char *input, char **env, char *temp)
+int		helper_process(t_state *state, const char *input, char **env, char *temp)
 {
 	if (input[state->i] == '$' && !state->sq_open)
 	{
@@ -41,6 +41,8 @@ void	helper_process(t_state *state, const char *input, char **env, char *temp)
 		if (*env)
 			ft_strlcat(state->cmd->result, *env, 4096);
 		free(*env);
+		if (!input[state->i])
+			return (1);
 	}
 	else if (input[state->i])
 	{
@@ -53,6 +55,9 @@ void	helper_process(t_state *state, const char *input, char **env, char *temp)
 		state->cmd->token_quotes[state->n[1]] = ft_strdup(state->cmd->result);
 		state->n[1]++;
 	}
+	if (input[state->i] == '\'' || input[state->i] == '\"')
+		return (1);
+	return (0);
 }
 
 char	*process_char_helper(const char *input, t_state *state)
@@ -69,7 +74,8 @@ char	*process_char_helper(const char *input, t_state *state)
 		temp[0] = input[state->i];
 		temp[1] = '\0';
 		update_quotes(input[state->i], state, 4096);
-		helper_process(state, input, &env, temp);
+		if (helper_process(state, input, &env, temp))
+			return (handle_state_quotes(state), NULL);
 	}
 	handle_state_quotes(state);
 	return (state->cmd->result);
@@ -87,10 +93,12 @@ void	handle_quotes_and_expand(char *arg, t_state *state)
 		else if (arg[state->n[0]] == '$' && !state->sq_open)
 		{
 			process_char_helper(&arg[state->n[0]], state);
-			state->n[0] += state->i;
+			state->n[0] += state->i; // Sync n[0] with i after processing
 		}
 		else
+		{
 			handle_regular_char(arg, state);
+		}
 		if (state->n[1] >= 4096)
 		{
 			perror("Too many quoted strings");
