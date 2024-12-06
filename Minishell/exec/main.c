@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:03:20 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/04 13:26:27 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/06 12:05:16 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,6 @@ int	flunch(t_command *cmd)
 			g_sig = 200;
 			launch_exec(quentin);
 		}
-		else
-		{
-			// quentin->table->pids[quentin->table->ipids] = val;
-			// quentin->table->ipids++;
-		}
 		quentin = quentin->next;
 	}
 	return_value = wait_pids(cmd);
@@ -61,17 +56,8 @@ char	**exec_command(char *line, char **envp, int *return_value)
 	char		**env = NULL;
 	t_command	*cmd;
 
-	if (check_line(line) == -1)
-	{
-		free(line);
-		return (envp);
-	}
-	if (syntax(line) == -1)
-	{
-		printf("lalalalala");
-		free(line);
-		return (envp);
-	}
+	if (check_line(line) == -1 || syntax(line) == -1)
+		return (free(line), envp);
 	else
 	{
 		cmd = fill_t_command(line, envp, *return_value);

@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:10 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 13:58:23 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:25:40 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	handle_quotes_s(char c, t_quote_context *ctx)
 		ctx->in_double_quote = !(ctx->in_double_quote);
 }
 
-void	process_special_char(char *str, char *res, t_quote_context *ctx)
+void    process_special_char(char *str, char *res, t_quote_context *ctx)
 {
-	if (ctx->i > 0 && str[ctx->i - 1] != ' ')
-		res[ctx->j++] = ' ';
-	res[ctx->j++] = str[ctx->i];
-	if (str[ctx->i + 1] == str[ctx->i])
-		res[ctx->j++] = str[ctx->i++];
-	if (str[ctx->i + 1] != ' ')
-		res[ctx->j++] = ' ';
+    if (ctx->i > 0 && str[ctx->i - 1] != ' ')
+        res[ctx->j++] = ' ';
+    res[ctx->j++] = str[ctx->i];
+    while (str[ctx->i + 1] == str[ctx->i])
+        res[ctx->j++] = str[ctx->i++];
+    if (str[ctx->i + 1] != ' ')
+        res[ctx->j++] = ' ';
 }
 
 void	process_char(char *str, char *res, t_quote_context *ctx)

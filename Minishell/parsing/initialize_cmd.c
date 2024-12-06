@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 12:39:45 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 14:38:18 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:59:57 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void allocate_command_arrays(t_command *cmd)
 void initialize_command_defaults(t_command *cmd, t_table *table)
 {
 	cmd->result[0] = '\0';
-	for (int i = 0; i < 1024; i++)
+	for (int i = 0; i < 1024; i++) //<<--------------------------- NON
 		cmd->token_quotes[i] = NULL;
 	cmd->fd_in = -2;
 	cmd->here_doc = -2;
