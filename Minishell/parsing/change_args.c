@@ -67,6 +67,7 @@ void	change_args_for_exec(t_command *cmd)
 		new_args = malloc(sizeof(char *) * (count + 1));
 		if (!new_args)
 			return (perror("Error with malloc"));
+		ft_bzero(new_args, count+1);
 		fill_args(head, count, new_args);
 		freetab(head->args);
 		head->args = new_args;

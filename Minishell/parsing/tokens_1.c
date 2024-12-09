@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/04 14:29:24 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:23:33 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	process_tokens(char **tokens, t_command *cmd, int *j)
 	ret = 0;
 	state = initialize_t_state();
 	process_token_arguments(tokens, cmd, j);
-	find_fd_in(cmd);
+	find_fd_in(cmd, tokens);
 	if (cmd->fd_in != -3)
 		find_fd_out(cmd);
 	if (cmd->fd_in == -3 || cmd->fd_out == -3)
@@ -120,6 +120,7 @@ t_command	*tokenize_input(char *input, char **envp, int return_value)
 	}
 	head = cmd;
 	tokens = ft_split(input, ' ');
+	free(input);
 	if (split_and_process_tokens(cmd, tokens, table))
 		return (NULL);
 	freetab(tokens);

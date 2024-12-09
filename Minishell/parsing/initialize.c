@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 12:39:45 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 16:09:24 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:18:06 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_table	*initialize_t_main(char *line, char **envp, int *return_value)
 	table = malloc(sizeof(t_table));
 	table->num_pids = ft_count_pipe(line);
 	table->pids = malloc(sizeof(int) * 1024);
+	ft_bzero(table->pids, table->num_pids);
 	i = 0;
 	while (i < table->num_pids)
 	{

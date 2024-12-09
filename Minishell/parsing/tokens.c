@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/04 14:29:39 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:19:59 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*helper_quotes(char *arg, char c, t_state *state)
 	if (arg[j] != '$')
 		j++;
 	str = malloc(1024);
+	ft_bzero(str, 1024);
 	while ((arg[j] != c && arg[j]))
 	{
 		str[i++] = arg[j++];
@@ -57,6 +58,7 @@ char	*copy_quotes_to_arg(t_command *cmd, int *i, t_state *state)
 		perror("Error allocating memory for cmd->args[*i]");
 		exit(1);
 	}
+	ft_bzero(cmd->args, 4096);
 	cmd->args[*i][0] = '\0';
 	j = 0;
 	while (cmd->token_quotes && cmd->token_quotes[j])

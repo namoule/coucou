@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:27:01 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/02 18:16:09 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:15:19 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,40 @@ void	freetab(char **tab)
 	if(tab)
 		free(tab);
 	tab = NULL;
+}
+
+void	free_cmd1(t_command *cmd)
+{
+	t_command	*head;
+
+	head = cmd;
+	while (cmd)
+	{
+		head = cmd;
+		if (cmd->fd_in >= 0)
+			close(cmd->fd_in);
+		if (cmd->fd_out >= 0 && cmd->next == NULL)
+			close(cmd->fd_out);
+		if (cmd->pprev >= 0)
+			close(cmd->pprev);
+		if (cmd->sargs)
+		{
+			freetab(cmd->sargs);
+			cmd->sargs = NULL;
+		}
+		if (cmd->token_quotes)
+		{
+			freetab(cmd->token_quotes);
+			cmd->token_quotes = NULL;
+		}
+		if (cmd->result)
+		{
+			free(cmd->result);
+			cmd->result = NULL;
+		}
+		cmd = cmd->next;
+		free(head);
+	}
 }
 
 void	free_cmd(t_command *cmd)

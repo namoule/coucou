@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:03:20 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/06 12:05:16 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:22:47 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ char	**exec_command(char *line, char **envp, int *return_value)
 	else
 	{
 		cmd = fill_t_command(line, envp, *return_value);
-		free(line);
 		if (!cmd)
 			return (envp);
 		if(!cmd->next && check_builtins(cmd) == 0)

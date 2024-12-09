@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 12:20:10 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/06 11:25:40 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:20:50 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*good_char(char *str)
 	res = malloc(sizeof(char) * (good_len(str) + 1));
 	if (!res)
 		return (NULL);
+	ft_bzero(res, (good_len(str) + 1));
 	ctx.i = 0;
 	ctx.j = 0;
 	ctx.in_single_quote = 0;
