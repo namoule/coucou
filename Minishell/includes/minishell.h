@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:01:59 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/09 17:25:46 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:30:27 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void					new_t_command(t_command *cmd, t_table *table);
 void					add_line_to_history(const char *line);
 int						find_fd_out(t_command *cmd);
 int						helper_fd_out(t_command *cmd, char *file, int flags);
-int						find_fd_in(t_command *cmd, char **tokens);
+int						find_fd_in(t_command *cmd, char **tokens, t_state *state);
 void					new_t_command(t_command *cmd, t_table *table);
 int						open_fct_check(char *file, int i);
 int						ft_count_pipe(char *str);
@@ -188,5 +188,5 @@ char					**get_env1(char **envp);
 char					**get_env3(char **envp);
 int						check_builtins(t_command *cmd);
 void					free_cmd1(t_command *cmd);
-int						here_doc(t_command *cmd, char *lim, char **tokens);
+int	here_doc(t_command *cmd, char *lim, char **tokens, t_state *state);
 #endif

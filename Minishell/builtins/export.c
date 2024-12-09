@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:03:09 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/06 11:28:01 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 23:15:43 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ int	check_export(char *exported, char **envp)
 	i = 0;
 	len = 0;
 	equal = 0;
-	while (exported[len] && exported[len] != '=')
-		len++;
-	if(exported[len] == '=')
-		equal++;
-	if(equal != 1)
-		return(-1);
 	while (envp[i] != NULL)
 	{
 		if (ft_strncmp(exported, envp[i], len) == 0)
@@ -68,7 +62,7 @@ char    **export_1(char *exported, char **envp, int al_here)
         i++;
     }
     res[i] = NULL;
-    freetab(envp); // <---------- changement efffectue
+    freetab(envp);
     return (res);
 }
 

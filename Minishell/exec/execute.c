@@ -6,36 +6,66 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:10:19 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/06 12:39:06 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 23:39:12 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	execute(t_command *cmd, char **envp)
-{
-	char	*pathoche;
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <stdlib.h>
+#include <string.h>
 
-	if (!cmd || !cmd->args || !cmd->args[0])
-		perror("invalid command");
-	if (ft_strchr(cmd->args[0], '/') != 0)
-		pathoche = ft_strdup(cmd->args[0]);
-	else
-		pathoche = find_path(cmd);
-	if (!pathoche)
-	{
-		perror("pathoche vide : ");
-		return ;
-	}
-	if(access(pathoche, X_OK) == 0)
-	{
-		if (execve(pathoche, cmd->args, envp) == -1)
-		{
-			free(pathoche);
-			perror(cmd->args[0]);
-		}
-	}
+void free_exec(t_command *cmd)
+{
+	free_table(cmd->table);
+	free_cmd(cmd);
 }
+
+void execute(t_command *cmd, char **envp)
+{
+    char *pathoche;
+    struct stat file_stat;
+
+    if (!cmd || !cmd->args || !cmd->args[0])
+    {
+        perror("invalid command");
+        return;
+    }
+    if (ft_strchr(cmd->args[0], '/') != 0)
+        pathoche = ft_strdup(cmd->args[0]);
+    else
+        pathoche = find_path(cmd);
+    if (!pathoche)
+    {
+        perror(cmd->args[0]);
+		free_exec(cmd);
+        return;
+    }
+    if (stat(pathoche, &file_stat) == -1)
+    {
+        perror(cmd->args[0]);
+		free_exec(cmd);
+        free(pathoche);
+        return;
+    }
+    if (!S_ISREG(file_stat.st_mode) || access(pathoche, X_OK) != 0)
+    {
+        perror(cmd->args[0]);
+		free_table(cmd->table);
+		free_cmd(cmd);
+        free(pathoche);
+        return;
+    }
+    if (execve(pathoche, cmd->args, envp) == -1)
+    {
+        perror("Erreur d'exécution : ");
+        free(pathoche);
+    }
+}
+
 
 void execute_line(t_command *cmd)
 {
@@ -66,7 +96,6 @@ int	execute_cmd(t_command *cmd)
 		perror("fork");
 	else
 		close(cmd->p[WRITE_END]);
-	printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa%d----------------%s\n\n\n\n\n",cmd->table->pids[cmd->table->ipids], cmd->args[0]);
 	cmd->table->ipids++;
 	return (0);
 }

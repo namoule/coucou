@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 16:33:25 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/09 17:30:25 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 23:34:40 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	child_here(char *lim, char *filename, int fd_read)
 		ft_putchar_fd('\n', fd_read);
 		free(line);
 	}
-	free(filename);
 	close(fd_read);
 }
+
 
 int	here_doc(t_command *cmd, char *lim, char **tokens, t_state *state)
 {
@@ -86,10 +86,16 @@ int	here_doc(t_command *cmd, char *lim, char **tokens, t_state *state)
 	fork_id = fork();
 	if (fork_id == 0)
 	{
+		free(cmd->args);
+		freetab(cmd->table->envp);
+		free(cmd->table->pids);
+		free(cmd->table);
 		free_cmd1(cmd);
 		freetab(tokens);
+		free(state);
 		child_here(lime, tmpfile, fd);
 		free(lime);
+		free(tmpfile);
 		exit(EXIT_SUCCESS);
 	}
 	else if (fork_id > 0)

@@ -6,15 +6,15 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/09 17:26:26 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:26:26 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_here_doc(t_command *cmd, int *i, char** tokens)
+void	handle_here_doc(t_command *cmd, int *i, char** tokens, t_state *state)
 {
-	cmd->fd_in = here_doc(cmd, cmd->sargs[*i + 1], tokens);
+	cmd->fd_in = here_doc(cmd, cmd->sargs[*i + 1], tokens, state);
 	(*i)++;
 }
 
@@ -36,7 +36,7 @@ int	handle_file_redirection(t_command *cmd, int *i)
 	return (0);
 }
 
-int	find_fd_in(t_command *cmd, char **tokens)
+int	find_fd_in(t_command *cmd, char **tokens, t_state *state)
 {
 	int	i;
 
@@ -44,7 +44,7 @@ int	find_fd_in(t_command *cmd, char **tokens)
 	while (cmd->sargs[i])
 	{
 		if (ft_strcmp(cmd->sargs[i], "<<") == 0)
-			handle_here_doc(cmd, &i, tokens);
+			handle_here_doc(cmd, &i, tokens, state);
 		else if (ft_strcmp(cmd->sargs[i], "<") == 0)
 		{
 			if (handle_file_redirection(cmd, &i))
