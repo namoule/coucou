@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:03:20 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/09 17:22:47 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:12:59 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	launch_exec(t_command *cmd)
+void	launch_exec(t_command *cmd, t_command *head)
 {
-	execute_cmd(cmd);
+	execute_cmd(cmd, head);
 
 	if (cmd->pprev != -2)
 		close(cmd->pprev);
@@ -32,14 +32,16 @@ int	flunch(t_command *cmd)
 {
 	int			return_value;
 	t_command	*quentin;
+	t_command	*head;
 
 	quentin = cmd;
+	head = cmd;
 	while (quentin && quentin->args[0])
 	{
 		if (check_cmd(quentin, cmd->table->envp) == 0)
 		{
 			g_sig = 200;
-			launch_exec(quentin);
+			launch_exec(quentin, head);
 		}
 		quentin = quentin->next;
 	}

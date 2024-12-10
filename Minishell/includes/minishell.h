@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:01:59 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/09 22:30:27 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:14:09 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,10 @@ char					*check_access(char **pathoche, char *cmd, int i);
 int						check_path_in_env(char **envp);
 int						check_line(char *line);
 void					execute(t_command *cmd, char **envp);
-int						execute_cmd(t_command *cmd);
+int	execute_cmd(t_command *cmd, t_command *head);
 void					freetab(char **tab);
 void					free_cmd(t_command *cmd);
-void					launch_exec(t_command *cmd);
+void	launch_exec(t_command *cmd, t_command *head);
 int						flunch(t_command *cmd);
 char					**exec_command(char *line, char **envp,
 							int *return_value);

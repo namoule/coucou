@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 01:25:41 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/09 22:30:01 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:26:23 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,3 +126,9 @@ t_command	*tokenize_input(char *input, char **envp, int return_value)
 	freetab(tokens);
 	return (head);
 }
+
+
+//cmd sargs
+//cmd args
+//cmd
+//cmd->result

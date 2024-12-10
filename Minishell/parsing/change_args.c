@@ -43,6 +43,7 @@ void	fill_args(t_command *head, int count_args, char **new_args)
 		if (head->args[i][0] != '<' && head->args[i][0] != '>')
 		{
 			new_args[j] = ft_strdup(head->args[i]);
+			
 			j++;
 		}
 		else

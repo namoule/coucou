@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 13:10:19 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/09 23:39:12 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:13:39 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,16 @@ void execute(t_command *cmd, char **envp)
 }
 
 
-void execute_line(t_command *cmd)
+void execute_line(t_command *cmd, t_command *head)
 {
 	if(is_builtins(cmd) == -1)
 		execute(cmd, cmd->table->envp);
+	else
+		free_exec(head);
 	exit(0);
 }
 
-int	execute_cmd(t_command *cmd)
+int	execute_cmd(t_command *cmd, t_command *head)
 {
 	if (pipe(cmd->p) == -1)
 		perror("pipe");
@@ -90,7 +92,7 @@ int	execute_cmd(t_command *cmd)
 		deal_out_pipe(cmd);
 		close(cmd->p[WRITE_END]);
 		close(cmd->p[READ_END]);
-		execute_line(cmd);
+		execute_line(cmd, head);
 	}
 	else if (cmd->table->pids[cmd->table->ipids] < 0)
 		perror("fork");

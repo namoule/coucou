@@ -6,7 +6,7 @@
 /*   By: jealefev <jealefev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:27:01 by jealefev          #+#    #+#             */
-/*   Updated: 2024/12/09 16:15:19 by jealefev         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:34:08 by jealefev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	free_cmd1(t_command *cmd)
 			free(cmd->result);
 			cmd->result = NULL;
 		}
-		cmd = cmd->next;
 		free(head);
 	}
 }
@@ -84,22 +83,18 @@ void	free_cmd(t_command *cmd)
 		if (cmd->args)
 		{
 			freetab(cmd->args);
-			cmd->args = NULL;
 		}
 		if (cmd->sargs)
 		{
 			freetab(cmd->sargs);
-			cmd->sargs = NULL;
 		}
 		if (cmd->token_quotes)
 		{
 			freetab(cmd->token_quotes);
-			cmd->token_quotes = NULL;
 		}
 		if (cmd->result)
 		{
 			free(cmd->result);
-			cmd->result = NULL;
 		}
 		cmd = cmd->next;
 		free(head);
